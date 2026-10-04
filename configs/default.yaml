@@ -1,0 +1,87 @@
+data:
+  source: raw
+  raw_dir: data/ipinyou
+  raw_glob: training2nd/imp.*.txt
+  advertisers: ["1458", "3386"]
+  processed_dir: artifacts/data
+  valid_days: 1
+  test_days: 2
+  min_category_count: 20
+  max_domains: 1000
+  max_train_rows: null
+  max_eval_rows: null
+  seed: 42
+
+censoring:
+  alpha_low: 0.05
+  alpha_high: 1.0
+  replicates: 1
+  seed: 7
+
+kaplan_meier:
+  enabled: true
+  segmented: true
+  segment_min_size: 2000
+
+win_classifier:
+  enabled: true
+  num_boost_round: 2000
+  early_stopping_rounds: 50
+  monotone_method: advanced
+  params:
+    learning_rate: 0.05
+    num_leaves: 63
+    min_data_in_leaf: 200
+    feature_fraction: 0.9
+    bagging_fraction: 0.8
+    bagging_freq: 1
+    lambda_l2: 1.0
+    max_cat_to_onehot: 4
+    cat_smooth: 10.0
+    seed: 42
+
+hazard:
+  enabled: true
+  bin_width: 5.0
+  max_train_requests: 300000
+  max_valid_requests: 100000
+  num_boost_round: 2000
+  early_stopping_rounds: 50
+  params:
+    learning_rate: 0.05
+    num_leaves: 63
+    min_data_in_leaf: 200
+    feature_fraction: 0.9
+    bagging_fraction: 0.8
+    bagging_freq: 1
+    lambda_l2: 1.0
+    max_cat_to_onehot: 4
+    cat_smooth: 10.0
+    seed: 42
+
+optimizer:
+  grid_size: 96
+  q_min: null
+  chunk_size: 20000
+
+fixed_shading:
+  k_min: 0.05
+  k_max: 1.0
+  k_step: 0.01
+
+evaluation:
+  anlp_bin_width: 5.0
+  calibration_bins: 15
+  oracle_eps: 0.01
+  win_curve_sample: 5000
+
+mlflow:
+  enabled: false
+  experiment: bid-shading
+  tracking_uri: null
+  run_name: null
+
+drop_features: ["weekday"]
+
+output_dir: artifacts/run
+reports_dir: reports

@@ -1,0 +1,27 @@
+# Smoke test on synthetic logs: `make smoke`. Runs in about a minute.
+data:
+  source: make_ipinyou
+  raw_dir: data/synthetic
+  advertisers: ["9999"]
+  processed_dir: artifacts/synthetic/data
+  valid_days: 1
+  min_category_count: 20
+
+kaplan_meier:
+  segment_min_size: 500
+
+win_classifier:
+  num_boost_round: 300
+  early_stopping_rounds: 20
+
+hazard:
+  max_train_requests: 50000
+  max_valid_requests: 20000
+  num_boost_round: 300
+  early_stopping_rounds: 20
+
+optimizer:
+  grid_size: 64
+
+output_dir: artifacts/synthetic/run
+reports_dir: artifacts/synthetic/reports
